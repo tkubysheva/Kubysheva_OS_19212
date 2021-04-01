@@ -154,6 +154,8 @@ int main()
 	}
 
 	destroyIndentTable(&table);
+        if (close(file))
+             perror("Error in closing file.\n");
 
 	return 0;
 }
