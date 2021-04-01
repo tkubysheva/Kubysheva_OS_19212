@@ -131,10 +131,16 @@ int main()
 	IndentTable table;
 
 	if(!initIndentTable(&table)){
+        if(close(file)){
+            perror("Error in closing file");
+        }
         return -1;
     }
     if(!fillIndentTable(&table, file)){
         destroyIndentTable(&table);
+        if(close(file)){
+            perror("Error in closing file");
+        }
         return -1;
     }
     printIndentTable(&table);
@@ -154,8 +160,8 @@ int main()
 	}
 
 	destroyIndentTable(&table);
-        if (close(file))
-             perror("Error in closing file.\n");
-
+    if(close(file)){
+        perror("Error in closing file");
+    }
 	return 0;
 }
