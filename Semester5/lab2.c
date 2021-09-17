@@ -12,12 +12,10 @@ void * thread_body(void * param) {
 
 int main(int argc, char *argv[]) {
     pthread_t thread;
-    int thread_creating_code;
-
-    thread_creating_code=pthread_create(&thread, NULL, thread_body, NULL);
-    if (thread_creating_code!=0) {
+    int thread_creating_code = pthread_create(&thread, NULL, thread_body, NULL);
+    if (thread_creating_code != 0) {
         printf("Error in  creating thread: error_code: %d\n", thread_creating_code);
-        return (EXIT_FAULT);
+        return (EXIT_FAILURE);
     }
     int thread_joining_code;
     thread_joining_code = pthread_join(thread, NULL);
@@ -25,9 +23,11 @@ int main(int argc, char *argv[]) {
         printf("Error in  joining thread: error_code: %d\n", thread_joining_code);
         return (EXIT_FAULT);
     }
+
     int num_of_phrase_repeat = 10;
     for(int i = 0; i < num_of_phrase_repeat; i++){
-        printf("%d. Hello, I'm parent! ", i);
+        printf("%d. Hello, I'm parent!\n", i);
     }
+
     return (EXIT_SUCCESS);
 }
