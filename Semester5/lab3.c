@@ -4,19 +4,22 @@
 #include <pthread.h>
 #include <string.h>
 
-struct 
+struct strings{
+     int num_of_lines;
+     char** lines;
+}
 
-void * thread_body(char** s) {
-     int str_num = atoi(s[0]);
-     for(int i = 1; i < str_num; i++){
-        printf("%s", s[i]);
+void * thread_body(struct strings* param) {
+     for(int i = 1; i < param.num_of_lines; i++){
+        printf("%s", param.lines[i]);
      }
 }
 
 int main(int argc, char *argv[]) {
     pthread_t thread1, thread2, thread3, thread4;
-     
-    int thread1_creating_code = pthread_create(&thread1, NULL, thread_body, NULL);
+    char** a = {"aaa", "bb", "cccc"};
+    struct strings param1 =  {3, a};
+    int thread1_creating_code = pthread_create(&thread1, NULL, thread_body, &param1);
     if (thread1_creating_code != 0) {
         printf("Error in  creating thread: error_code: %d\n", thread1_creating_code);
         return (EXIT_FAILURE);
