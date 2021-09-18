@@ -10,8 +10,8 @@ struct strings{
 };
 
 void * thread_body(struct strings* param) {
-     for(int i = 1; i < param.num_of_lines; i++){
-        printf("%s ", param.lines[i]);
+     for(int i = 1; i < param->num_of_lines; i++){
+        printf("%s ", param->lines[i]);
      }
 }
 
