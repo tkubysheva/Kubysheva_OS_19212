@@ -1,18 +1,24 @@
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
 void * thread_end(void * param){
-     printf("\nTHE END!\n");
+    printf("\n!THE END!\n");
 }
 
-void * thread_body(void * param) {
-     pthread_cleanup_push(thread_end, NULL);
-     while(1){
-        printf("Hello, I'm child!");
-     }
+
+void * thread_body(void *param) {
+    pthread_cleanup_push(thread_end, NULL);
+    while(1){
+        sleep(1);
+        printf("I'm child\n");
+    }
+    int cleanup_code_execute = 1;
+    pthread_cleanup_pop(cleanup_code_execute);
 }
+
 
 int main(int argc, char *argv[]) {
     pthread_t thread;
@@ -20,9 +26,8 @@ int main(int argc, char *argv[]) {
     if (thread_creating_code != 0) {
         printf("Error in  creating thread: error_code: %d\n", thread_creating_code);
         return (EXIT_FAILURE);
-      
     }
-    sleep(2);
+    sleep(5);
     int thread_cancel_code = pthread_cancel(thread);
     if (thread_cancel_code != 0) {
         printf("Error in canceling thread: error_code: %d\n", thread_cancel_code);
@@ -31,4 +36,3 @@ int main(int argc, char *argv[]) {
 
     return (EXIT_SUCCESS);
 }
-
