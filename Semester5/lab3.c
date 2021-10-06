@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <string.h>
-#include <bool.h>
 
 struct strings{
      int num_of_lines;
@@ -17,7 +16,7 @@ void * thread_body(void* par) {
      }
 }
 
-bool creating_thread(pthread_t thread, struct strings* param){
+int creating_thread(pthread_t thread, struct strings* param){
     int thread_creating_code = pthread_create(&thread, NULL, thread_body, &param);
     if (thread_creating_code != 0) {
         printf("Error in  creating thread 1: error_code: %d\n", thread_creating_code);
@@ -42,7 +41,7 @@ int main(int argc, char *argv[]) {
     char* strs4[] = {s1, s3};
     struct strings param[] =  {{3, strs1}, {5, strs2}, {4, strs3},  {2, strs4}};
     for(int i = 0; i < 4; i++){
-         if (creating_thread(threads[i], param[i]) == 0) {
+         if (creating_thread(threads[i], &param[i]) == 0) {
               return (EXIT_FAILURE);
          }
     }
