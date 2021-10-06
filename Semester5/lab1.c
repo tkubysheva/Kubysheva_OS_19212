@@ -23,6 +23,6 @@ int main(int argc, char *argv[]) {
     for(int i = 0; i < NUM_OF_PHRASE_REPEAT; i++){
         printf("%d. Hello, I'm parent!\n", i);
     }
-
+    pthread_exit(NULL);
     return (EXIT_SUCCESS);
 }

@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
     param[2] = {4, strs3};
     param[3] = {2, strs4};
     for(int i = 0; i < 4; i++){
-         if (creating_thread(threads[i], param[i]) == 0) {
+         if (creating_thread(threads[i], &param[i]) == 0) {
               return (EXIT_FAILURE);
          }
     }
