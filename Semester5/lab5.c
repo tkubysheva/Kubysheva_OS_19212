@@ -12,7 +12,6 @@ void * thread_end(void * param){
 void * thread_body(void *param) {
     pthread_cleanup_push(thread_end, NULL);
     while(1){
-        sleep(1);
         printf("I'm child\n");
     }
     int cleanup_code_execute = 1;
@@ -27,10 +26,15 @@ int main(int argc, char *argv[]) {
         printf("Error in  creating thread: error_code: %d\n", thread_creating_code);
         return (EXIT_FAILURE);
     }
-    sleep(5);
+    sleep(2);
     int thread_cancel_code = pthread_cancel(thread);
     if (thread_cancel_code != 0) {
         printf("Error in canceling thread: error_code: %d\n", thread_cancel_code);
+        return (EXIT_FAILURE);
+    }
+    int thread_joining_code = pthread_join(thread, NULL);
+    if (thread_creating_code!=0) {
+        printf("Error in  joining thread: error_code: %d\n", thread_joining_code);
         return (EXIT_FAILURE);
     }
 
